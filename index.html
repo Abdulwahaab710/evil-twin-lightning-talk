@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Evil Twin Attack</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      .presentation-title h1 {
+          font-size: 8vw;
+      }
+      h1 {
+          font-size: 20vw;
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+    }
+
+      .footnote {
+        position: absolute;
+        bottom: 1em;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #1481BA;
+        line-height: 0.8em;
+      }
+
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .full img{
+          width: 100%;
+      }
+      .full2 img{
+          width: 90%;
+      }
+      .full8 img {
+          width: 80%;
+      }
+      .full6 img {
+          width: 60%;
+      }
+      .full7 img {
+          width: 95%;
+      }
+      a {
+        text-decoration: none;
+        color: #1481BA;
+    }
+    .remark-slide-number{
+        display: none;
+    }
+    .disclaimer {
+        background: black;
+        color: red
+    }
+    .note{
+        background: black;
+        color: red;
+        text-align: center;
+    }
+    .flex-display {
+        display: flex;
+    }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, presentation-title
+
+# Evil Twin attack
+
+
+---
+
+# $ whoami
+
+```sh
+alias Abdul='Abdulwahaab'
+```
+
+CompSci 💻 Student @ uOttawa
+
+Intern in the SecDevOps team @ Shopify
+
+Links: `www.[a-z]*.com\/abdulwahaab710`
+
+Dotfiles: https://git.io/vMC8z
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+class: center, middle, inverse, presentation-title
+# Everyone Loves Wi-Fi, right?
+
+---
+class: center, middle, inverse, presentation-title
+# So do Hackers
+
+---
+class: center, middle, inverse, presentation-title
+# Imagine the following scenario
+
+---
+class: center, middle, inverse
+.flex-display[![map](/img/map.png)]
+
+---
+# How does your devices connect to WiFi?
+
+.center[.full6[![wifi gipy](https://media.giphy.com/media/z3olKbFZt92yk/giphy.gif)]]
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+
+# How does your devices connect to WiFi?
+
+- SSID
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+# How does your devices connect to WiFi?
+
+
+- SSID
+- Signal strength 📶
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+class: disclaimer
+# DISCLAIMER
+
+- This Presentation is intended for educational purposes only and I cannot be held liable for any kind of damages done whatsoever to your machine, or other damages.
+
+- Don't try this attack on any others system without having context knowledge or permission, this may harm to someone directly or indirectly. 
+
+---
+# What is an Evil Twin attack?
+<!-- An evil twin is a fraudulent Wi-Fi access point that appears to be legitimate, set up to eavesdrop on wireless communications.[1] The evil twin is the wireless LAN equivalent of the phishing scam. -->
+.full7[![evil-twin](/img/evil-twin.jpeg)]
+???
+- An evil twin is a fraudulent Wi-Fi access point that appears to be legitimate
+- Set up to eavesdrop on wireless communications.
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+# How to setup an Evil Twin
+
+- Configure it exactly the same way as an existing network
+    - Same ESSID
+    - Same Security Settings
+- Overpower the existing access points
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+
+---
+# Evil Twin in Kali
+- install bridge utils
+```bash
+apt-get install bridge-utils
+```
+- Start monitoring interface
+```bash
+airmon-ng start <interface>
+    ```
+- Create the evil twin
+```bash
+airbase-ng -a <BSSID here> --essid <ESSID here> -c <channel here> <interface name>
+```
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+# Evil Twin in Kali
+
+- Deauthentication or Bumping Him Off
+```bash
+aireplay-ng --deauth 0 -a <BSSID> mon0 --ignore-negative-one
+```
+- Turn up the Power!
+```bash
+iwconfig <interface> twpower <power>
+```
+
+.note[before turning the power up check MAXIMUM WIFI TRANSMISSION POWER IN YOUR COUNTRY]
+---
+# Evil Twin is Bad
+.full[![But Why?](https://media.giphy.com/media/s239QJIh56sRW/source.gif)]
+---
+# Why is Evil Twin Bad?
+
+- Man In The Middle (MITM) attack
+- Striping SSL
+- DNS Spoofing
+<!-- - Striping SSL (https://forums.kali.org/showthread.php?27420-Best-Method-for-setting-up-an-evil-twin-with-dnsspof-ssl-strip-etc) -->
+<!-- - MITM attack (https://www.youtube.com/watch?v=5NHycA_R4xY) -->
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+class: center, middle, inverse, presentation-title
+# SSL Strip
+---
+class: center, middle, inverse, presentation-title
+# DNS Spoofing
+---
+class: center, middle, inverse, presentation-title
+
+# Demo
+---
+class: center, middle, inverse, presentation-title
+# How to protect yourself against Evil Twin?
+---
+# How to protect yourself against Evil Twin?
+- Always remove the Wi-Fi networks that you don't use
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+# How to protect yourself against Evil Twin?
+- Always remove the Wi-Fi networks that you don't use
+- Always VPN in a untrusted network
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+# How to protect yourself against Evil Twin?
+- Always remove the Wi-Fi networks that you don't use
+- Always VPN in a untrusted network
+- Always use **SSL**
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+# Wall of Sheep
+.full4[![Wall of Sheep](/img/wall-of-sheep.jpg)]
+
+---
+# WIFI Cactus
+.full6[![Wifi Cactus](/img/Wificactus.jpg)]
+
+---
+
+# Any Questions?
+.full[![questions-giphy](https://media.giphy.com/media/3otPot3HqxcKRbGkXC/giphy-tumblr.gif)]
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+# Stay in touch
+- Website: https://abdulwahaab.ca
+- @abdulwahaab710
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+---
+# Thank you for listening
+
+
+.full[![Thank you](https://media.giphy.com/media/26BGM86XngBjKOqXu/giphy.gif)]
+
+.footnote[Slides can be accessed through https://git.io/vNG5z]
+</textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+  </script>
+  </body>
+</html>
